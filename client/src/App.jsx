@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import LandingPage from './Pages/LandingPage'
 import Login from './Pages/Login'
-import Home from './Pages/Home'
+import Dashboard from './Pages/Dashboard'
 const App = () => {
   return (
     <div> 
@@ -11,7 +11,7 @@ const App = () => {
         <Route path='/login' element={<Login/>} />
         <Route path='/home' element={<Home/>} /> */}
       </Routes>
-      <Home/>
+      <Dashboard/>
     </div>
   )
 }
