@@ -9,7 +9,7 @@ import Upcoming from '../components/Upcoming'
 import Today from '../components/Today'
 
 const Dashboard = () => {
-  const [menu,setMenu]=useState(1);
+  const [menu,setMenu]=useState(2);
   return (
     <div className='flex'>
       <div className='SIDEBAR w-1/5 h-screen p-5 flex flex-col gap-5 border-r-2'>
@@ -24,7 +24,7 @@ const Dashboard = () => {
         <div className='NAVBAR w-full h-20'>
           <Navbar/>
         </div>
-        <div className='MAIN w-full h-full'>
+        <div className='MAIN w-full h-full px-10'>
           {menu === 1 ? <Home/>
           :
           menu === 2 ? <Today/>
