@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomDialog from './custom/CustomDialog';
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -14,7 +14,7 @@ const Today = () => {
     <div>
       <h1 className="font-semibold text-2xl">Today</h1>
       <div className="mt-5">
-        <div className="px-5 flex gap-2 items-center">
+        <div className="px- flex gap-2 items-center">
           <Checkbox checked={isChecked} onCheckedChange={handleCheckboxChange} />
           <p className={isChecked ? 'line-through' : ''}>this is a task</p>
         </div>

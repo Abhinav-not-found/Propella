@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -9,8 +9,34 @@ import {
 import { Plus } from 'lucide-react'
 import { Button } from '../ui/button'
 import { Input } from "@/components/ui/input"
+import { useToast } from "@/hooks/use-toast"
+
+
+import axios from 'axios'
 
 const CustomDialog = () => {
+  const [task,setTask]=useState('')
+  const {toast} =useToast()
+  const handleAddTask= async()=>{
+    if (!task.trim()) return;
+    try {
+      const res = await axios.post('http://localhost:8080/api/tasks/create',{task:task})
+      if(res.status === 201){
+        console.log(res.data)
+        toast({
+          title: "Task Created Successfully ✅",
+        })
+        setTask('')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleAddTask()
+    }
+  }
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -20,9 +46,9 @@ const CustomDialog = () => {
         <DialogHeader>
           <DialogTitle>Add a task</DialogTitle>
           <div className='my-5'>
-            <Input/>
+            <Input value={task} onChange={(e)=>setTask(e.target.value)} onKeyDown={handleKeyDown} />
           </div>
-          <Button>Add</Button>
+          <Button onClick={handleAddTask}>Add</Button>
         </DialogHeader>
       </DialogContent>
     </Dialog>

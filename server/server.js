@@ -24,6 +24,9 @@ app.get('/', (req, res) => {
 const userRoutes = require('./routes/user.route')
 app.use('/api/users/',userRoutes)
 
+const taskRoutes = require('./routes/task.route')
+app.use('/api/tasks/',taskRoutes)
+
 app.use((err,req,res,next)=>{
   console.log(err)
   return sendResponse(res,500,'error','Internal Server Error',null,err)
