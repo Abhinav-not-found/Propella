@@ -18,4 +18,25 @@ router.post('/create', async (req, res, next) => {
   }
 });
 
+router.get('/getAllTasks',async(req,res,next)=>{
+  try {
+    const allTasks = await taskModel.find()
+    res.status(200).json(allTasks)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/deleteTask/:id',async(req,res,next)=>{
+  try {
+    const {id} = req.params
+    const deleteTask = await taskModel.findByIdAndDelete(id)
+    if(deleteTask){
+      res.status(200).json({deleteTask})
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = router;

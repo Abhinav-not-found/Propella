@@ -10,10 +10,10 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
-        black: {
-          DEFAULT: '#D05353', // Default black for light mode
-          dark: '#D05353',    // Custom black for dark mode
-        },
+        // black: {
+        //   DEFAULT: '#D05353', // Default black for light mode
+        //   dark: '#D05353',    // Custom black for dark mode
+        // },
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {

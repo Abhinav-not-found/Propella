@@ -4,6 +4,11 @@ const taskSchema = new mongoose.Schema({
   task: {
     type: String,
     required: [true,'This field is required.'],
+  },
+  checked:{
+    type:Boolean,
+    required:[true,'This field is require.'],
+    default:false
   }
 }, {timestamps: true});
 
