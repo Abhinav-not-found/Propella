@@ -62,4 +62,17 @@ router.put('/updateChecked/:id', async (req, res, next) => {
   }
 });
 
+router.put('/updateTask/:id',async(req,res,next)=>{
+  try {
+    const {id}=req.params
+    const {updatedText} =req.body
+    const findTask = await taskModel.findByIdAndUpdate(id,{task:updatedText},{new:true})
+    if(findTask){
+      return res.status(200).json({message:'Updated Successfully'})
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = router;

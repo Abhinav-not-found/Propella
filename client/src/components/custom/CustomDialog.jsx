@@ -15,7 +15,7 @@ import axios from 'axios';
 const CustomDialog = ({ getAllTasks }) => {
   const [task, setTask] = useState('');
   const { toast } = useToast();
-  const [isDialogOpen, setIsDialogOpen] = useState(false); // State to control dialog open/close
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleAddTask = async () => {
     if (!task.trim()) return;
@@ -27,8 +27,8 @@ const CustomDialog = ({ getAllTasks }) => {
           title: "Task Created Successfully ✅",
         });
         setTask('');
-        getAllTasks(); // Refetch tasks
-        setIsDialogOpen(false); // Close dialog after task is added
+        getAllTasks(); 
+        setIsDialogOpen(false); 
       }
     } catch (error) {
       console.log(error);
@@ -42,7 +42,7 @@ const CustomDialog = ({ getAllTasks }) => {
   };
 
   return (
-    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}> {/* Control dialog visibility */}
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
         <Button variant='ghost' className='flex justify-start'>
           <Plus /> Add task
