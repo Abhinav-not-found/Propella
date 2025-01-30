@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import CustomDialog from './custom/CustomDialog';
-import { Checkbox } from "@/components/ui/checkbox";
 import { X } from 'lucide-react';
 import axios from 'axios';
 import { useToast } from "@/hooks/use-toast";
+import TodoItem from './TodoItem';
 
 const Today = () => {
   const [allTasks, setAllTasks] = useState([]);
@@ -30,9 +30,9 @@ const Today = () => {
   }, []);
 
   const handleCheckboxChange = async (index) => {
-    const task = allTasks[index];
+    const task = allTasks[index] || checkedTasks[index];
     const updatedTask = { ...task, checked: !task.checked };
-    console.log(updatedTask)
+    // console.log(updatedTask)
   
     try {
       const res = await axios.put(`http://localhost:8080/api/tasks/updateChecked/${task._id}`, {
@@ -43,9 +43,6 @@ const Today = () => {
         const updatedTasks = allTasks.filter((_, i) => i !== index);
         setAllTasks(updatedTask.checked ? updatedTasks : [...updatedTasks, updatedTask]);
         setCheckedTasks(updatedTask.checked ? [...checkedTasks, updatedTask] : checkedTasks.filter(t => t._id !== task._id));
-        // toast({
-        //   title: `Task ${updatedTask.checked ? 'Completed' : 'Pending'} ✅`,
-        // });
       }
     } catch (error) {
       console.log('Error updating task:', error);
@@ -80,13 +77,7 @@ const Today = () => {
         <div className="flex flex-col gap-2 pl-4 mb-2">
           {allTasks.map((data, index) => (
             <div key={index} className="flex items-center w-2/3 justify-between ">
-              <div className='flex items-center gap-2'>
-                <Checkbox
-                  checked={data.checked}
-                  onCheckedChange={() => handleCheckboxChange(index)}
-                />
-                <p className={data.checked ? 'line-through' : ''}>{data.task}</p>
-              </div>
+              <TodoItem data={data} checkBox={()=>handleCheckboxChange(index)} />
               <div className='flex items-center gap-3'>
                 <button onClick={() => handleDeleteTask(data._id)}>
                   <X className='hover:text-red-400' />
@@ -99,13 +90,7 @@ const Today = () => {
         <div className='opacity-20 pl-4 pt-5'>
           {checkedTasks.map((data, index) => (
             <div key={index} className="flex items-center w-2/3 justify-between ">
-              <div className='flex items-center gap-2'>
-                <Checkbox
-                  checked={data.checked}
-                  onCheckedChange={() => handleCheckboxChange(index)}
-                />
-                <p className={data.checked ? 'line-through' : ''}>{data.task}</p>
-              </div>
+              <TodoItem data={data} checkBox={()=>handleCheckboxChange(index)} />
               <div>
                 <button onClick={() => handleDeleteTask(data._id)}>
                   <X className='hover:text-red-400' />
