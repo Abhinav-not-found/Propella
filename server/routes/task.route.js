@@ -39,4 +39,27 @@ router.delete('/deleteTask/:id',async(req,res,next)=>{
   }
 })
 
+router.put('/updateChecked/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { isChecked } = req.body; 
+    console.log(isChecked)
+
+    const updatedTask = await taskModel.findByIdAndUpdate(
+      id,
+      { checked: isChecked },
+      { new: true } 
+    );
+
+    if (!updatedTask) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+
+    // Send the updated task back as a response
+    res.status(200).json(updatedTask);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
