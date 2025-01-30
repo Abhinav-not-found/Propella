@@ -87,7 +87,7 @@ const Today = () => {
                 />
                 <p className={data.checked ? 'line-through' : ''}>{data.task}</p>
               </div>
-              <div>
+              <div className='flex items-center gap-3'>
                 <button onClick={() => handleDeleteTask(data._id)}>
                   <X className='hover:text-red-400' />
                 </button>
