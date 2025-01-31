@@ -16,19 +16,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import CustomDatePicker from './custom/CustomDatePicker'
 
 const TodoItem = ({ data, checkBox, onUpdateTask }) => {
-  //! start adding custom tag functionality
 
   const [editingTask, setEditingTask] = useState(data.task);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [priority,setPriority]=useState(data.priority)
-
+  const [selectedDate,setSelectedDate]=useState(null)
+  
   const handleUpdateTask = async () => {
     try {
       const res = await axios.put(
         `http://localhost:8080/api/tasks/updateTask/${data._id}`,
-        { updatedText: editingTask,priority:priority }
+        { updatedText: editingTask,priority:priority,date:selectedDate}
       );
       if (res.status === 200) {
         setIsDialogOpen(false);
@@ -45,6 +46,9 @@ const TodoItem = ({ data, checkBox, onUpdateTask }) => {
     if (e.key === "Enter") {
       handleUpdateTask();
     }
+  };
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
   };
 
   return (
@@ -74,22 +78,23 @@ const TodoItem = ({ data, checkBox, onUpdateTask }) => {
               className="bg-transparent"
               onKeyDown={handleKeyDown}
             />
-            <div className="flex justify-between items-center mt-5">
-              <div className="flex gap-3">
-                <Select onValueChange={(value) => setPriority(value)}>
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder={priority || 'Priority'} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="High">High</SelectItem>
-                    <SelectItem value="Mid">Mid</SelectItem>
-                    <SelectItem value="Low">Low</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Button variant="secondary" className="opacity-60">
-                  Add Tag
-                </Button>
-              </div>
+            <div className="flex gap-3 mt-3">
+              <Select onValueChange={(value) => setPriority(value)}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder={priority || 'Priority'} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="High">High</SelectItem>
+                  <SelectItem value="Mid">Mid</SelectItem>
+                  <SelectItem value="Low">Low</SelectItem>
+                </SelectContent>
+              </Select>
+              <Button variant="secondary" className="opacity-60">
+                Add Tag
+              </Button>
+            </div>
+            <div className="flex justify-between items-center mt-3">
+              <CustomDatePicker onDateChange={handleDateChange} />
               <Button onClick={handleUpdateTask}>Update</Button>
             </div>
           </div>

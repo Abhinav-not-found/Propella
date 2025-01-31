@@ -4,11 +4,12 @@ import { X } from 'lucide-react';
 import axios from 'axios';
 import { useToast } from "@/hooks/use-toast";
 import TodoItem from './TodoItem';
+import CustomTooltip from './custom/CustomTooltip'
 
 const Today = () => {
   const [allTasks, setAllTasks] = useState([]);
   const [checkedTasks, setCheckedTasks] = useState([]);
-  console.log(allTasks)
+  // console.log(allTasks)
   // console.log(checkedTasks)
 
   const { toast } = useToast();
@@ -17,8 +18,15 @@ const Today = () => {
     try {
       const res = await axios.get('http://localhost:8080/api/tasks/getAllTasks');
       if (res.status === 200) {
-        setAllTasks(res.data.filter((data)=>data.checked === false)); 
-        setCheckedTasks(res.data.filter((data)=>data.checked === true))
+        const today = new Date();
+        const formattedToday = today.toISOString().split('T')[0];
+  
+        const tasksForToday = res.data.filter((task) => {
+          return task.date.split('T')[0] === formattedToday;
+        });
+  
+        setAllTasks(tasksForToday.filter((data) => data.checked === false));
+        setCheckedTasks(tasksForToday.filter((data) => data.checked === true));
       }
     } catch (error) {
       console.log(error);
@@ -53,7 +61,6 @@ const Today = () => {
       });
     }
   };
-  
 
   const handleDeleteTask = async (id) => {
     try {
@@ -93,11 +100,9 @@ const Today = () => {
               <TodoItem data={data} checkBox={()=>handleCheckboxChange(index)} onUpdateTask={handleTaskUpdate} />
               <div className='flex items-center gap-3'>
 
-                {data.priority =="High" ? <div className='bg-red-500 rounded-full w-3 h-3'></div>
-                :
-                data.priority =='Mid'? <div className='bg-yellow-500 rounded-full w-3 h-3'></div>
-                :
-                <div className='bg-green-500 rounded-full w-3 h-3'></div>}
+                <div className='opacity-60'>{data.date.split('T')[0]}</div>
+
+                <CustomTooltip data={data}/>
 
                 <button onClick={() => handleDeleteTask(data._id)}>
                   <X className='hover:text-red-400' />

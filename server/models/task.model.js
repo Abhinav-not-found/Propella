@@ -16,6 +16,11 @@ const taskSchema = new mongoose.Schema({
     enum:['High','Mid','Low'],
     default:'Low'
   },
+  date:{
+    type:Date,
+    required:[true,'This field is require.'],
+    default:''
+  }
 }, {timestamps: true});
 
 const Task = mongoose.model('Task', taskSchema);

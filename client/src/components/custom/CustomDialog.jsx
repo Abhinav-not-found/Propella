@@ -18,21 +18,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import CustomDatePicker from "./CustomDatePicker";
 
 const CustomDialog = ({ getAllTasks }) => {
   const [task, setTask] = useState("");
   const { toast } = useToast();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [priority,setPriority]=useState('')
+  const [priority, setPriority] = useState("");
+  const [selectedDate,setSelectedDate]=useState(null)
+  const currentDate = new Date;
 
   const handleAddTask = async () => {
     if (!task.trim()) return;
     try {
       const res = await axios.post("http://localhost:8080/api/tasks/create", {
-        task: task,priority:priority
+        task: task,
+        priority: priority,
+        date:selectedDate || currentDate.toISOString().split('T')[0]
       });
       if (res.status === 201) {
-        console.log(res.data);
+        // console.log(res.data);
         toast({
           title: "Task Created Successfully ✅",
         });
@@ -49,6 +54,9 @@ const CustomDialog = ({ getAllTasks }) => {
     if (e.key === "Enter") {
       handleAddTask();
     }
+  };
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
   };
 
   return (
@@ -68,9 +76,9 @@ const CustomDialog = ({ getAllTasks }) => {
               value={task}
               onChange={(e) => setTask(e.target.value)}
               onKeyDown={handleKeyDown}
+              placeholder="Title"
             />
-          <div className="flex items-center justify-between mt-5">
-            <div className="flex gap-3">
+            <div className="flex items-center gap-3 mt-3">
               <Select onValueChange={(value) => setPriority(value)}>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Priority" />
@@ -81,7 +89,6 @@ const CustomDialog = ({ getAllTasks }) => {
                   <SelectItem value="Low">Low</SelectItem>
                 </SelectContent>
               </Select>
-
               <Button
                 onClick={handleAddTask}
                 variant="secondary"
@@ -90,10 +97,11 @@ const CustomDialog = ({ getAllTasks }) => {
                 Tag
               </Button>
             </div>
-            <Button onClick={handleAddTask}>Add</Button>
+            <div className="flex items-center justify-between mt-3">
+              <CustomDatePicker onDateChange={handleDateChange} />
+              <Button onClick={handleAddTask}>Add</Button>
+            </div>
           </div>
-          </div>
-
         </DialogHeader>
       </DialogContent>
     </Dialog>
