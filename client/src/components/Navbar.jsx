@@ -1,13 +1,32 @@
-import React from 'react'
-import { ModeToggle } from './mode-toggle'
+import React from "react";
+import { ModeToggle } from "./mode-toggle";
+import { Music, Palette, Timer } from "lucide-react";
+import { Button } from "./ui/button";
+import CustomSearchBar from "./custom/CustomSearchBar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Navbar = () => {
   return (
-    <div>
-      Navbar
-      <ModeToggle/>
-    </div>
-  )
-}
+    <div className="flex py-2">
+      {/* <CustomSearchBar/> */}
+      <Button variant="ghost" size="icon">
+        <Music />
+      </Button>
+      <Button variant="ghost" size="icon">
+        <Timer />
+      </Button>
+      <Button variant="ghost" size="icon">
+        <Palette />
+      </Button>
 
-export default Navbar
+      <ModeToggle />
+      
+      <Avatar>
+        <AvatarImage src="https://github.com/shadcn.png" />
+        <AvatarFallback>CN</AvatarFallback>
+      </Avatar>
+    </div>
+  );
+};
+
+export default Navbar;
