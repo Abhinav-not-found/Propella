@@ -8,7 +8,7 @@ import TodoItem from './TodoItem';
 const Today = () => {
   const [allTasks, setAllTasks] = useState([]);
   const [checkedTasks, setCheckedTasks] = useState([]);
-  // console.log(allTasks)
+  console.log(allTasks)
   // console.log(checkedTasks)
 
   const { toast } = useToast();
@@ -70,6 +70,19 @@ const Today = () => {
     }
   };
 
+  const handleTaskUpdate = (updatedTask)=>{
+    if(updatedTask.checked){
+      setCheckedTasks((prev)=>{
+        prev.map(task=>task._id === updatedTask._id ? updatedTask : task)
+      })
+    }
+    else{
+      setAllTasks((prev) =>
+        prev.map(task => task._id === updatedTask._id ? updatedTask : task)
+      );
+    }
+  }
+
   return (
     <div>
       <h1 className="font-semibold text-2xl">Today</h1>
@@ -77,8 +90,15 @@ const Today = () => {
         <div className="flex flex-col gap-2 pl-2 mb-2">
           {allTasks.map((data, index) => (
             <div key={index} className="flex items-center w-2/3 justify-between rounded-md p-2">
-              <TodoItem data={data} checkBox={()=>handleCheckboxChange(index)} />
+              <TodoItem data={data} checkBox={()=>handleCheckboxChange(index)} onUpdateTask={handleTaskUpdate} />
               <div className='flex items-center gap-3'>
+
+                {data.priority =="High" ? <div className='bg-red-500 rounded-full w-3 h-3'></div>
+                :
+                data.priority =='Mid'? <div className='bg-yellow-500 rounded-full w-3 h-3'></div>
+                :
+                <div className='bg-green-500 rounded-full w-3 h-3'></div>}
+
                 <button onClick={() => handleDeleteTask(data._id)}>
                   <X className='hover:text-red-400' />
                 </button>

@@ -17,8 +17,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const TodoItem = ({ data, checkBox }) => {
-  //! start adding priority and custom tag functionality
+const TodoItem = ({ data, checkBox, onUpdateTask }) => {
+  //! start adding custom tag functionality
 
   const [editingTask, setEditingTask] = useState(data.task);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -33,6 +33,8 @@ const TodoItem = ({ data, checkBox }) => {
       if (res.status === 200) {
         setIsDialogOpen(false);
         data.task = editingTask;
+        const updatedData = { ...data, task: editingTask, priority: priority };
+      onUpdateTask(updatedData);
       }
     } catch (error) {
       console.log(error);
