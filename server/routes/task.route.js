@@ -9,8 +9,8 @@ router.get('/', (req, res) => {
 
 router.post('/create', async (req, res, next) => {
   try {
-    const { task } = req.body;
-    const newTask = new taskModel({ task });
+    const { task,priority } = req.body;
+    const newTask = new taskModel({ task,priority });
     const saveTask = await newTask.save(); 
     res.status(201).json({message:'Task Created Successfully',data:saveTask})
   } catch (error) {
@@ -65,8 +65,8 @@ router.put('/updateChecked/:id', async (req, res, next) => {
 router.put('/updateTask/:id',async(req,res,next)=>{
   try {
     const {id}=req.params
-    const {updatedText} =req.body
-    const findTask = await taskModel.findByIdAndUpdate(id,{task:updatedText},{new:true})
+    const {updatedText,priority} =req.body
+    const findTask = await taskModel.findByIdAndUpdate(id,{task:updatedText,priority:priority},{new:true})
     if(findTask){
       return res.status(200).json({message:'Updated Successfully'})
     }

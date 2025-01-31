@@ -74,9 +74,9 @@ const Today = () => {
     <div>
       <h1 className="font-semibold text-2xl">Today</h1>
       <div className="mt-5">
-        <div className="flex flex-col gap-2 pl-4 mb-2">
+        <div className="flex flex-col gap-2 pl-2 mb-2">
           {allTasks.map((data, index) => (
-            <div key={index} className="flex items-center w-2/3 justify-between ">
+            <div key={index} className="flex items-center w-2/3 justify-between rounded-md p-2">
               <TodoItem data={data} checkBox={()=>handleCheckboxChange(index)} />
               <div className='flex items-center gap-3'>
                 <button onClick={() => handleDeleteTask(data._id)}>

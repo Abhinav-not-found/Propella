@@ -3,7 +3,10 @@
 @tailwind utilities;
 
 /* ... */
-
+@font-face {
+  font-family: "ShadowHand";
+  src: local("ShadowHand"),url('./assets/fonts/ShadowHand.ttf') format('truetype')
+}
 @layer base {
   :root {
 
