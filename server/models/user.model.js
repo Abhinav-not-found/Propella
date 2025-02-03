@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+require('dotenv').config();
+const JWT = process.env.JWT_SECRET
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -19,10 +21,6 @@ const userSchema = new mongoose.Schema({
     required: [true,'This field is required.'],
     select: false,
   },
-  // role: {
-  //   type: String,
-  //   default: 'user',
-  // },
 }, {timestamps: true});
 
 userSchema.statics.hashPassword = async(password)=>{
@@ -38,7 +36,7 @@ userSchema.methods.isValidPassword = async function (password) {
 
 
 userSchema.methods.generateJWT = async()=>{
-  return jwt.sign({email:this.email},process.env.JWT_SECRET,{expiresIn:'24h'})
+  return jwt.sign({email:this.email},JWT,{expiresIn:'24h'})
 }
 const User = mongoose.model('User', userSchema);
 module.exports = User;

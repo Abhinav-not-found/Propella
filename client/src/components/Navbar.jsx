@@ -9,8 +9,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {useNavigate} from 'react-router-dom'
+
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const handleLogout = () =>{
+    localStorage.removeItem('token')
+    localStorage.removeItem('userId')
+    navigate('/')
+  }
+
   return (
     <div className="flex py-2">
       {/* <CustomSearchBar/> */}
@@ -35,8 +44,10 @@ const Navbar = () => {
         </PopoverTrigger>
         <PopoverContent>Place content for the popover here.</PopoverContent>
       </Popover>
-      <Button>Login</Button> */}
+      <Button onClick={()=>navigate('/login')}>Login</Button> */}
+      
       Navbar
+      <Button onClick={handleLogout}>Logout</Button>
     </div>
   );
 };

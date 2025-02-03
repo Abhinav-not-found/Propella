@@ -1,17 +1,16 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import LandingPage from './Pages/LandingPage'
-import Login from './Pages/Login'
 import Dashboard from './Pages/Dashboard'
+import ProtectedRoute from './routes/ProtectedRoute'
+import PublicRoute from './routes/PublicRoute'
 const App = () => {
   return (
     <div> 
       <Routes>
-        {/* <Route path='/' element={<LandingPage/>} />
-        <Route path='/login' element={<Login/>} />
-        <Route path='/home' element={<Home/>} /> */}
+        <Route path='/' element={<PublicRoute><LandingPage/></PublicRoute>} />
+        <Route path='/dashboard' element={<ProtectedRoute><Dashboard/></ProtectedRoute>} />
       </Routes>
-      <Dashboard/>
     </div>
   )
 }
