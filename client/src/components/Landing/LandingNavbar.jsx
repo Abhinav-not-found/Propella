@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "../ui/button";
 import { ModeToggle } from "../mode-toggle";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import CustomTabs from "../custom/CustomTabs";
 
@@ -10,7 +10,7 @@ const LandingNavbar = () => {
   return (
     <div className="flex h-14 items-center justify-between w-full">
       <div>
-        <p>Propella</p>
+        <Link to={'/'} >Propella</Link>
       </div>
       <div className="flex items-center gap-4">
         <ModeToggle />
