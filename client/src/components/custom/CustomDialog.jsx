@@ -26,15 +26,20 @@ const CustomDialog = ({ getAllTasks }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [priority, setPriority] = useState("");
   const [selectedDate,setSelectedDate]=useState(null)
+  const localDate = new Date(selectedDate).toLocaleDateString('en-CA');
+  // console.log(selectedDate)
   const currentDate = new Date;
 
   const handleAddTask = async () => {
     if (!task.trim()) return;
+    const taskDate = selectedDate
+    ? new Date(selectedDate).toLocaleDateString('en-CA')
+    : new Date().toLocaleDateString('en-CA')
     try {
       const res = await axios.post("http://localhost:8080/api/tasks/create", {
         task: task,
         priority: priority,
-        date:selectedDate || currentDate.toISOString().split('T')[0]
+        date:taskDate
       });
       if (res.status === 201) {
         // console.log(res.data);

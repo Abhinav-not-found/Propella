@@ -10,6 +10,9 @@ router.get('/', (req, res) => {
 router.post('/create', async (req, res, next) => {
   try {
     const { task,priority,date } = req.body;
+    // const adjustedDate = new Date(new Date(date).getTime() + new Date(date).getTimezoneOffset() * 60000);
+    const formattedDate = date.split('T')[0];
+
     const newTask = new taskModel({ task,priority:priority||'Low',date });
     const saveTask = await newTask.save(); 
     res.status(201).json({message:'Task Created Successfully',data:saveTask})

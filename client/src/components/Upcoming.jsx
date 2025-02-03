@@ -8,7 +8,7 @@ import TodoItem from './TodoItem';
 const Upcoming = () => {
   
   const [upcomingTasks,setUpcomingTasks]=useState([])
-  console.log(upcomingTasks)
+  // console.log(upcomingTasks)
 
   const getUpcomingTasks = async () => {
     try {
