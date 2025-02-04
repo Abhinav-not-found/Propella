@@ -26,9 +26,9 @@ const CustomDialog = ({ getAllTasks }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [priority, setPriority] = useState("");
   const [selectedDate,setSelectedDate]=useState(null)
-  const localDate = new Date(selectedDate).toLocaleDateString('en-CA');
+  // const localDate = new Date(selectedDate).toLocaleDateString('en-CA');
   // console.log(selectedDate)
-  const currentDate = new Date;
+  // const currentDate = new Date;
 
   const handleAddTask = async () => {
     if (!task.trim()) return;

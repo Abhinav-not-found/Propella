@@ -22,7 +22,7 @@ const Today = () => {
         const formattedToday = today.toISOString().split('T')[0];
   
         const tasksForToday = res.data.filter((task) => {
-          return task.date.split('T')[0] === formattedToday;
+          return task.date.split('T')[0] <= formattedToday;
         });
   
         setAllTasks(tasksForToday.filter((data) => data.checked === false));
