@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { X } from 'lucide-react';
 import CustomTooltip from './custom/CustomTooltip'
 import TodoItem from './TodoItem';
+import backendUri from '../utils/config';
 
 
 const Upcoming = () => {
@@ -12,7 +13,7 @@ const Upcoming = () => {
 
   const getUpcomingTasks = async () => {
     try {
-      const res = await axios.get('http://localhost:8080/api/tasks/getAllTasks');
+      const res = await axios.get(`${backendUri}/api/tasks/getAllTasks`);
       if (res.status === 200) {
         const today = new Date();
         const formattedToday = today.toISOString().split('T')[0];
@@ -39,7 +40,7 @@ const Upcoming = () => {
     // console.log(updatedTask)
   
     try {
-      const res = await axios.put(`http://localhost:8080/api/tasks/updateChecked/${task._id}`, {
+      const res = await axios.put(`${backendUri}/api/tasks/updateChecked/${task._id}`, {
         isChecked: updatedTask.checked,
       });
   
@@ -71,7 +72,7 @@ const Upcoming = () => {
   }
   const handleDeleteTask = async (id) => {
     try {
-      const res = await axios.delete(`http://localhost:8080/api/tasks/deleteTask/${id}`);
+      const res = await axios.delete(`${backendUri}/api/tasks/deleteTask/${id}`);
       if (res.status === 200) {
         setUpcomingTasks((prevTasks) => prevTasks.filter(task => task._id !== id));
         // setCheckedTasks((prevTasks) => prevTasks.filter(task => task._id !== id));

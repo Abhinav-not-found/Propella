@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import CustomDatePicker from "./CustomDatePicker";
+import backendUri from "../../utils/config";
 
 const CustomDialog = ({ getAllTasks }) => {
   const [task, setTask] = useState("");
@@ -36,7 +37,7 @@ const CustomDialog = ({ getAllTasks }) => {
     ? new Date(selectedDate).toLocaleDateString('en-CA')
     : new Date().toLocaleDateString('en-CA')
     try {
-      const res = await axios.post("http://localhost:8080/api/tasks/create", {
+      const res = await axios.post(`${backendUri}/api/tasks/create`, {
         task: task,
         priority: priority,
         date:taskDate
@@ -95,7 +96,7 @@ const CustomDialog = ({ getAllTasks }) => {
                 </SelectContent>
               </Select>
               <Button
-                onClick={handleAddTask}
+                onClick={''}
                 variant="secondary"
                 className="opacity-60"
               >

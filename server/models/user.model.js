@@ -21,6 +21,9 @@ const userSchema = new mongoose.Schema({
     required: [true,'This field is required.'],
     select: false,
   },
+  yearlyGoals:{
+    type:[String],
+  }
 }, {timestamps: true});
 
 userSchema.statics.hashPassword = async(password)=>{

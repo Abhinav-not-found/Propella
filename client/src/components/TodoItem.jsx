@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import CustomDatePicker from './custom/CustomDatePicker'
+import backendUri from "../utils/config";
 
 const TodoItem = ({ data, checkBox, onUpdateTask }) => {
 
@@ -28,7 +29,7 @@ const TodoItem = ({ data, checkBox, onUpdateTask }) => {
   const handleUpdateTask = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:8080/api/tasks/updateTask/${data._id}`,
+        `${backendUri}api/tasks/updateTask/${data._id}`,
         { updatedText: editingTask,priority:priority,date:selectedDate}
       );
       if (res.status === 200) {

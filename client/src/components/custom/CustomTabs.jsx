@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import backendUri from "../../utils/config";
 
 const CustomTabs = () => {
   const [name,setName]=useState('')
@@ -21,12 +22,13 @@ const CustomTabs = () => {
   const navigate = useNavigate();
   const handleRegister = async()=>{
     try {
-      const res = await axios.post('http://localhost:8080/api/users/register',{name,email,password})
+      const res = await axios.post(`${backendUri}/api/users/register`,{name,email,password})
       if(res.status === 201){
         console.log(res.data)
         setEmail('')
         setPassword('')
         setName('')
+        alert(res.data.message)
       }
     } catch (error) {
       if(error.response && error.response.status === 409){
@@ -42,7 +44,7 @@ const CustomTabs = () => {
   }
   const handleLogin = async()=>{
     try {
-      const res = await axios.post("http://localhost:8080/api/users/login",{email,password})
+      const res = await axios.post(`${backendUri}/api/users/login`,{email,password})
       if(res.status===200){
         alert(res.data.message)
         localStorage.setItem('token',res.data.data.token)

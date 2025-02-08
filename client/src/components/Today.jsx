@@ -5,6 +5,9 @@ import axios from 'axios';
 import { useToast } from "@/hooks/use-toast";
 import TodoItem from './TodoItem';
 import CustomTooltip from './custom/CustomTooltip'
+import backendUri from '../utils/config';
+
+
 
 const Today = () => {
   const [allTasks, setAllTasks] = useState([]);
@@ -16,7 +19,7 @@ const Today = () => {
 
   const getAllTasks = async () => {
     try {
-      const res = await axios.get('http://localhost:8080/api/tasks/getAllTasks');
+      const res = await axios.get(`${backendUri}/api/tasks/getAllTasks`);
       if (res.status === 200) {
         const today = new Date();
         const formattedToday = today.toISOString().split('T')[0];
@@ -43,7 +46,7 @@ const Today = () => {
     // console.log(updatedTask)
   
     try {
-      const res = await axios.put(`http://localhost:8080/api/tasks/updateChecked/${task._id}`, {
+      const res = await axios.put(`${backendUri}/api/tasks/updateChecked/${task._id}`, {
         isChecked: updatedTask.checked,
       });
   
@@ -64,7 +67,7 @@ const Today = () => {
 
   const handleDeleteTask = async (id) => {
     try {
-      const res = await axios.delete(`http://localhost:8080/api/tasks/deleteTask/${id}`);
+      const res = await axios.delete(`${backendUri}/api/tasks/deleteTask/${id}`);
       if (res.status === 200) {
         setAllTasks((prevTasks) => prevTasks.filter(task => task._id !== id));
         setCheckedTasks((prevTasks) => prevTasks.filter(task => task._id !== id));

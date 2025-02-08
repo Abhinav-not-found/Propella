@@ -56,7 +56,8 @@ module.exports = {
         }
       },
       fontFamily:{
-        Shadow:['ShadowHand','cursive']
+        Shadow:['ShadowHand','cursive'],
+        IndieFlower:['Indie Flower','mono']
       }
     }
   },

@@ -9,7 +9,7 @@ import Upcoming from '../components/Upcoming'
 import Today from '../components/Today'
 
 const Dashboard = () => {
-  const [menu,setMenu]=useState(2);
+  const [menu,setMenu]=useState(1);
   return (
     <div className='flex'>
       <div className='SIDEBAR w-1/5 h-screen p-5 flex flex-col gap-5 border-r-2'>
