@@ -19,6 +19,13 @@ app.use(cors({
 app.options('*', cors());
 app.use(cookieParser())
 
+app.options("/", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "https://example.com");
+  res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.sendStatus(204);
+});
+
 dotenv.config();
 connection()
 
