@@ -9,7 +9,7 @@ import axios from 'axios'
 const LandingPage = () => {
   const navigate = useNavigate();
   const getAllUsers = async ()=>{
-    const res =  await axios.get('https://propella-backend.vercel.app/api/users/getAllUsers')
+    const res =  await axios.get('https://propella-backend.vercel.app/api/users/getAllUsers',{withCredentials:true})
     console.log(res.data)
   }
   useEffect(() =>{
