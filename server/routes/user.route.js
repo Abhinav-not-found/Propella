@@ -1,5 +1,5 @@
 const express = require('express')
-const { register, login, profile, getUserInfo, addYearlyGoals, getYearlyGoals, deleteYearlyGoal } = require('../controllers/user.controller')
+const { register, login, profile, getUserInfo, addYearlyGoals, getYearlyGoals, deleteYearlyGoal,getAllUsers } = require('../controllers/user.controller')
 const authMiddleware = require('../middleware/auth.middleware')
 
 const router = express.Router()
@@ -8,6 +8,8 @@ router.post('/register',register)
 router.post('/login',login)
 router.get('/profile',authMiddleware ,profile)
 router.get('/getUserInfo/:id',getUserInfo)
+
+router.get('/getAllUsers', getAllUsers)
 
 // yearly goals
 router.post('/addYearlyGoals/:id',addYearlyGoals)

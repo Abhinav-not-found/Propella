@@ -75,6 +75,17 @@ const getUserInfo = async (req,res,next)=>{
   }
 }
 
+const getAllUsers = async(req,res,next)=>{
+  try {
+    const getAllUsers = await userModel.find()
+    if(getAllUsers){
+      res.status(200).json(getAllUsers);
+    }
+  } catch (error) {
+    next(error)
+  }
+}
+
 // yearly goals
 const addYearlyGoals = async (req,res,next)=>{
   try {
@@ -118,5 +129,5 @@ const deleteYearlyGoal=async(req,res,next)=>{
     next(error)
   }
 }
-module.exports = { register, login, profile,getUserInfo, addYearlyGoals, getYearlyGoals, deleteYearlyGoal }
+module.exports = { register, login, profile,getUserInfo, addYearlyGoals, getYearlyGoals, deleteYearlyGoal, getAllUsers }
 
