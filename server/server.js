@@ -14,6 +14,7 @@ app.use(morgan('dev'))
 app.use(cors({
   origin: ['https://propella-psi.vercel.app/', 'http://localhost:5173/'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials:true,
 }))
 app.use(cookieParser())
 
